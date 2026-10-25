@@ -1,0 +1,83 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.methodjava;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author ahmad
+ */
+public class PendataanMahasiswa {
+    public static void main (String[]args){
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println(">>> PROGRAM PENDATAAN MAHASISWA <<<");
+        
+        int[] batas = tentukanUkuran(input);
+        String[][][] daftarMahasiswa = new String[batas[0]][batas[1]][batas[2]];
+        
+        System.out.println("\n>>> PROSES INPUT DATA <<<");
+        rekamData(input, daftarMahasiswa);
+        
+        System.out.println("\n>>> REKAP HASIL & OPERASI STRING <<<");
+        cetakHasil(daftarMahasiswa);
+    }
+    
+    static int[] tentukanUkuran(Scanner in) {
+        int[] dimensi = new int[3];
+        System.out.print("Tentukan banyak Program Studi (max 3) : ");
+        dimensi[0] = in.nextInt();
+        System.out.print("Tentukan banyak Kelas per Prodi (max 3): ");
+        dimensi[1] = in.nextInt();
+        System.out.print("Tentukan banyak Mahasiswa di tiap Kelas: ");
+        dimensi[2] = in.nextInt();
+        in.nextLine(); 
+        return dimensi;
+    }
+    
+    static void rekamData(Scanner in, String[][][] arr) {
+        String[] daftarProdi = {"Sistem Informasi", "Teknik Sipil", "Teknik Lingkungan"};
+        
+        for (int p = 0; p < arr.length; p++) {
+            String namaProdi = (p < daftarProdi.length) ? daftarProdi[p] : "Prodi " + (p + 1);
+            System.out.println("\n-- " + namaProdi + " --");
+            
+            for (int k = 0; k < arr[p].length; k++) {
+                char abjadKelas = (char) ('A' + k); 
+                System.out.println(" Kelas " + abjadKelas + " :");
+                
+                for (int m = 0; m < arr[p][k].length; m++) {
+                    System.out.print("  > Nama Mhs " + (m + 1) + " = ");
+                    arr[p][k][m] = in.nextLine();
+                }
+            }
+        }
+    }
+    
+    static void cetakHasil(String[][][] arr) {
+        String[] daftarProdi = {"Sistem Informasi", "Teknik Sipil", "Teknik Lingkungan"};
+        
+        for (int p = 0; p < arr.length; p++) {
+            String namaProdi = (p < daftarProdi.length) ? daftarProdi[p] : "Prodi " + (p + 1);
+            
+            for (int k = 0; k < arr[p].length; k++) {
+                char abjadKelas = (char) ('A' + k);
+                
+                for (int m = 0; m < arr[p][k].length; m++) {
+                    String teksAsli = arr[p][k][m];
+                    String kapital = teksAsli.toUpperCase();
+                    String kecil = teksAsli.toLowerCase();
+                    int jumlah = teksAsli.length();
+                    
+                    System.out.println("Data: " + namaProdi + " | Kelas " + abjadKelas + " | Nama: " + teksAsli);
+                    System.out.println("   - Huruf Besar  : " + kapital);
+                    System.out.println("   - Huruf Kecil  : " + kecil);
+                    System.out.println("   - Jumlah Huruf : " + jumlah + " karakter\n");
+                }
+            }
+        }
+    }
+}    
